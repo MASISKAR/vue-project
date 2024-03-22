@@ -1,6 +1,17 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import {ref} from 'vue'
+
+let count  = ref(0);
+console.log(count);
+function increment(){
+  count.value++;
+}
+function decrement(){
+  count.value--;
+}
+
 </script>
 
 <template>
@@ -8,12 +19,18 @@ import TheWelcome from './components/TheWelcome.vue'
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
+      <HelloWorld msg="hellooo" />
       <HelloWorld msg="sfxcvcb" />
+      <HelloWorld msg="dsfsdfsssss" />
     </div>
   </header>
 
   <main>
     <TheWelcome />
+
+<button @click="decrement()">-</button>
+<span >{{ count }}</span>
+<button @click="increment()">+</button>
   </main>
 </template>
 
