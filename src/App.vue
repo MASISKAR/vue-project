@@ -1,36 +1,66 @@
-<script setup>
+<script>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import {ref} from 'vue'
-
-let count  = ref(0);
-console.log(count);
-function increment(){
-  count.value++;
+export default {
+  components: {
+    HelloWorld,
+    TheWelcome
+  },
+  data() {
+    return {
+      count: 0,
+      canShowImage: true,
+    };
+  },
+  methods: {
+    changeCounter(value) {
+      this.count += value;
+    },
+    resetCounter(){
+      this.count = 0;
+    },
+    hideImage(){
+      this.canShowImage = false;
+    },
+    showImage(){
+      this.canShowImage = true;
+    }
+  }
 }
-function decrement(){
-  count.value--;
-}
-
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <img v-if="canShowImage" alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <h3 v-else>The image was hidden!</h3>
+    <button @click="showImage()">Show image</button>
+<button @click="hideImage()">Hide image</button>
 
     <div class="wrapper">
-      <HelloWorld msg="hellooo" />
+      <hello-world v-show="canShowImage" msg="hellooo" />
+
       <HelloWorld msg="sfxcvcb" />
       <HelloWorld msg="dsfsdfsssss" />
+      <TheWelcome />
     </div>
   </header>
 
   <main>
-    <TheWelcome />
+    <button @click="changeCounter(-10)">-10</button>
+    <button @click="changeCounter(-1)">-</button>
+    <span>{{ count }}</span>
+    <button @click="changeCounter(1)">+</button>
+    <button @click="changeCounter(10)">+10</button>
+    <button @click="resetCounter()">Reset</button>
+<div>The count is:
+<span v-if="count === 0">Zero</span>
+<span v-else-if="count === 1">One</span>
+<span v-else-if="count === 2">Two</span>
+<span v-else-if="count === 3">Three</span>
+<span v-else>Other</span>
 
-<button @click="decrement()">-</button>
-<span >{{ count }}</span>
-<button @click="increment()">+</button>
+</div>
+
   </main>
 </template>
 
