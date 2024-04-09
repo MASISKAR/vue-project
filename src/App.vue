@@ -1,20 +1,16 @@
 <script>
-// import Product from './components/Product.vue';
-import Input from './components/Input.vue';
-import Hello from './components/Hello.vue'
+import Product from './components/Product.vue';
 
 export default {
   components: {
-    // Product,
-    Input,
-    Hello,
+    Product,
   },
   data() {
     return {
       fruits: [
         {
           name: 'apple',
-          price: '3$',
+          price: '300֏',
           description: 'Golden apples from Armenia'
         },
         {
@@ -38,38 +34,37 @@ export default {
           description: 'Fresh bananas from Ecuador'
         },
       ],
-
-      name: '',
+      rate: 400,
     }
   },
 methods: {
-  onSubmit(name){
-    this.name = name;
-  },
+onCurrencyChange(index){
+  const fruit = this.fruits[index];
+  let currentCurrency = fruit.price[fruit.price.length-1];
+
+  if(currentCurrency === '$'){
+    fruit.price = parseFloat(fruit.price) * this.rate + '֏';
+  } else {
+    fruit.price = parseFloat(fruit.price) / this.rate + '$';
+  }
+}
 }
 }
 </script>
 
 <template>
   <main>
-<Input @submit-name="onSubmit"/>
 
-<Hello :name="name"/>
-
-
-
-
-
-<!--  -->
-<!-- <ol> -->
-  <!-- <li v-for="fruit in fruits" :key="fruit.name"> -->
-    <!-- <Product :fruit="fruit" customClass="dicsount"/> -->
-  <!-- </li> -->
-<!-- </ol> -->
-<!--  -->
-<!-- <Product  -->
-<!-- :fruit="{name: 'apple', price:'2$', description: 'red apples'}"  -->
-<!-- customClass="darkred"/> -->
+<ol>
+  <li v-for="(fruit, index) in fruits" :key="fruit.name">
+    <Product 
+    :fruit="fruit" 
+    customClass="dicsount" 
+    :index="index"
+    @currencyChange="onCurrencyChange(index)"
+    />
+  </li>
+</ol>
   </main>
 </template>
 

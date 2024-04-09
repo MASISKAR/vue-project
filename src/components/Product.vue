@@ -15,15 +15,20 @@ props: {
         required: true
     },
     customClass: String,
+},
+methods: {
+    onButtonClick(){
+        this.$emit('currencyChange');
+    }
 }
-
 }
 
 </script>
 
 <template>
 <div>
-    <Name class="red" :value="fruit.name"/> <Price :value="fruit.price" :customClass="customClass"/> <Description :value="fruit.description"/>
+    <Name class="red" :value="fruit.name"/> <Price :value="fruit.price" :customClass="customClass"/><button @click="onButtonClick">Change the currency</button> <Description :value="fruit.description"/>
+    
 </div>
 </template>
 
